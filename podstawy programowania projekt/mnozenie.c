@@ -6,7 +6,7 @@ int zgodne_do_sumy(int wA, int kA, int wB, int kB);
 void dodaj(double A[][MAX], double B[][MAX], double C[][MAX], int w, int k);
 void odejmij(double A[][MAX], double B[][MAX], double C[][MAX], int w, int k);
 
-void wypisz(double M[][MAX], int w, int k);
+void wypisz(double M[][MAX], int w, int k)
 {
     int i, j;
     
@@ -36,6 +36,9 @@ void pomnoz(double A[][MAX], double B[][MAX], double C[][MAX], int wA, int kA, i
 
 int main(void)
 {
+    int wA = 2, kA = 2, wB = 2, kB = 2;
+    double A[MAX][MAX] = {{1.0, 2.0}, {3.0, 4.0}};
+    double B[MAX][MAX] = {{5.0, 6.0}, {7.0, 8.0}};
     wypisz(A, wA, kA);
     wypisz(B, wB, kB);
     
