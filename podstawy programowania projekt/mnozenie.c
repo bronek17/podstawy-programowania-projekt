@@ -42,5 +42,7 @@ int main(void)
     wypisz(A, wA, kA);
     wypisz(B, wB, kB);
     
+    printf("test test");
+
     return 0;
 }
