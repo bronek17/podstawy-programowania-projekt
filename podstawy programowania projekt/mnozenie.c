@@ -39,10 +39,14 @@ int main(void)
     int wA = 2, kA = 2, wB = 2, kB = 2;
     double A[MAX][MAX] = {{1.0, 2.0}, {3.0, 4.0}};
     double B[MAX][MAX] = {{5.0, 6.0}, {7.0, 8.0}};
+
+    double C[MAX][MAX];
+    
     wypisz(A, wA, kA);
     wypisz(B, wB, kB);
     
-    printf("test test");
+    pomnoz(A, B, C, wA, kA, kB);
+    wypisz(C, wA, kB);
 
     return 0;
 }
