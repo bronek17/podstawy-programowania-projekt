@@ -47,6 +47,6 @@ int main(void)
     
     pomnoz(A, B, C, wA, kA, kB);
     wypisz(C, wA, kB);
-
+    printf("Suma A + B:\n");
     return 0;
 }
