@@ -29,7 +29,7 @@ void dodaj(double A[MAX][MAX], double B[MAX][MAX], double C[MAX][MAX], int w, in
     }
 }
 
-void zgodne_do_sumy(double A[MAX][MAX], double B[MAX][MAX], double C[MAX][MAX], int wA, int kA, int wB, int kB)
+void operacja_dodaj(double A[MAX][MAX], double B[MAX][MAX], double C[MAX][MAX], int wA, int kA, int wB, int kB)
 {
     if (wA == wB && kA == kB)
     {
@@ -55,7 +55,7 @@ void odejmij(double A[MAX][MAX], double B[MAX][MAX], double D[MAX][MAX], int w, 
     }
 }
 
-void zgodne_do_roznicy(double A[MAX][MAX], double B[MAX][MAX], double D[MAX][MAX], int wA, int kA, int wB, int kB)
+void operacja_odejmij(double A[MAX][MAX], double B[MAX][MAX], double D[MAX][MAX], int wA, int kA, int wB, int kB)
 {
     if (wA == wB && kA == kB)
     {
@@ -87,7 +87,7 @@ void pomnoz(double A[MAX][MAX], double B[MAX][MAX], double E[MAX][MAX], int wA, 
     }
 }
 
-void zgodne_do_mnozenia(double A[MAX][MAX], double B[MAX][MAX], double E[MAX][MAX], int wA, int kA, int wB, int kB)
+void operacja_pomnoz(double A[MAX][MAX], double B[MAX][MAX], double E[MAX][MAX], int wA, int kA, int wB, int kB)
 {
     if (kA == wB)
     {
@@ -113,9 +113,9 @@ int main(void)
     wypisz(A, wA, kA);
     wypisz(B, wB, kB);
 
-    zgodne_do_sumy(A, B, C, wA, kA, wB, kB);
-    zgodne_do_roznicy(A, B, D, wA, kA, wB, kB);
-    zgodne_do_mnozenia(A, B, E, wA, kA, wB, kB);
+    operacja_dodaj(A, B, C, wA, kA, wB, kB);
+    operacja_odejmij(A, B, D, wA, kA, wB, kB);
+    operacja_pomnoz(A, B, E, wA, kA, wB, kB);
     return 0;
 }
 */
@@ -132,8 +132,8 @@ int main(void)
     wypisz(A, wA, kA);
     wypisz(B, wB, kB);
 
-    zgodne_do_sumy(A, B, C, wA, kA, wB, kB);
-    zgodne_do_roznicy(A, B, D, wA, kA, wB, kB);
-    zgodne_do_mnozenia(A, B, E, wA, kA, wB, kB);
+    operacja_dodaj(A, B, C, wA, kA, wB, kB);
+    operacja_odejmij(A, B, D, wA, kA, wB, kB);
+    operacja_pomnoz(A, B, E, wA, kA, wB, kB);
     return 0;
 }
