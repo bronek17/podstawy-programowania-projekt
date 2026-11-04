@@ -147,6 +147,7 @@ int main(int argc, char *argv[])
 	wypisz(m1);
 	m2 = dodaj(m1,m1);
 	zapisz(argv[2], m2);
-	
+
+	printf("test test");
 	return 0;
 }
