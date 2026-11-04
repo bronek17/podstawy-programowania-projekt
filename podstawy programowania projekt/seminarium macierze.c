@@ -97,6 +97,38 @@ macierz dodaj(macierz lewa, macierz prawa)
 	return wynik;
 }
 
+macierz mnoz(macierz lewa, macierz prawa)
+{
+	macierz wynik;
+	int i,j,k;
+	double suma;
+	
+	if (lewa.k != prawa.w)
+	{
+		printf("Niezgodne wymiary macierzy w funkcji mnozenia.\n");
+		exit(2);
+	}
+	
+	wynik.w = lewa.w;
+	wynik.k = prawa.k;
+
+	for (i=0; i < lewa.w; i++)
+	{
+		
+		for (j=0; j < prawa.k; j++)
+		{
+			suma = 0;
+			for (k = 0; k < lewa.k; k++)
+			{
+				suma += lewa.wartosci[i][k] * prawa.wartosci[k][j];
+			}
+			wynik.wartosci[i][j] = suma;
+		}
+	}
+	
+	return wynik;
+}
+
 int main(int argc, char *argv[])
 {
 	macierz m1;
