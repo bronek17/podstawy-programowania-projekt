@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #define MAX_SIZE 10
 
-struct macierz
+typedef struct _macierz
 {
 	int w;
 	int k;
 	double wartosci[MAX_SIZE][MAX_SIZE]
-};
+} macierz;
 
-void wypisz(struct macierz m)
+void wypisz(macierz m)
 {
 	int i, j;
 	printf("[ ");
@@ -27,9 +27,9 @@ void wypisz(struct macierz m)
 	printf("]\n");
 }
 
-struct macierz wczytaj(char * nazwa_pliku)
+macierz wczytaj(char * nazwa_pliku)
 {
-	struct macierz m;
+	macierz m;
 	int i, j;
 	printf("Bede probowal wczytac dane z pliku: %s\n", nazwa_pliku);
 	
@@ -50,12 +50,71 @@ struct macierz wczytaj(char * nazwa_pliku)
 	return m;
 };
 
+void zapisz(char *nazwa, macierz m)
+{
+	FILE * fout = fopen(nazwa, "w");
+	int i,j;
+	
+	fprintf(fout, "%d\n", m.w);
+	fprintf(fout, "%d\n", m.k);
+	
+	for (i=0; i < m.w; i++)
+	{
+		for (j=0; j < m.k; j++)
+		{
+			fprintf(fout, "%lf ", m.wartosci[i][j]);
+		}
+		
+		if (i < (m.w-1))
+		fprintf(fout, "\n");
+	}
+	
+	fclose(fout);
+}
+
+macierz dodaj(macierz lewa, macierz prawa)
+{
+	macierz wynik;
+	int i,j;
+	
+	if (lewa.k != prawa.k || lewa.w != prawa.w)
+	{
+		printf("Niezgodne wymiary macierzy w funkcji dodawania.\n");
+		exit(2);
+	}
+	
+	wynik.w = lewa.w;
+	wynik.k = lewa.k;
+
+	for (i=0; i < lewa.w; i++)
+	{
+		for (j=0; j < lewa.k; j++)
+		{
+			wynik.wartosci[i][j] = lewa.wartosci[i][j] + prawa.wartosci[i][j];
+		}
+	}
+	
+	return wynik;
+}
+
 int main(int argc, char *argv[])
 {
-	struct macierz m1;
-	m1 = wczytaj("macierz1.txt");
-	printf("wymiar macierzy; wierwsze: %d kolumny: %d\n", m1.w, m1.k);
+	macierz m1;
+	macierz m2;
+	
+	if (argc < 3)
+	{
+		printf("Podaj argumenty. Na przyklad: sem3.exe macierz.txt wynik.txt\n");
+		exit(1);
+	}
+	
+	//m1 = wczytaj("macierz1.txt");
+	//printf("wymiar macierzy; wierwsze: %d kolumny: %d\n", m1.w, m1.k);
 	//printf("%.1lf\n", m1.wartosci[2][3]);
+	m1 = wczytaj(argv[1]);
 	wypisz(m1);
+	m2 = dodaj(m1,m1);
+	zapisz(argv[2], m2);
+	
 	return 0;
 }
