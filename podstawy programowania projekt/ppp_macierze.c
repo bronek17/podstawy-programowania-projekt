@@ -209,3 +209,54 @@ int main(void)
 
     return 0;
 }
+
+
+
+
+
+//cw6
+
+
+
+
+
+#ifndef MATRIX_H
+#define MATRIX_H
+#define MAX 20
+int zgodne_do_sumy(int wA, int kA, int wB, int kB);
+void dodaj(double A[][MAX], double B[][MAX], double C[][MAX],
+ int w, int k);
+/* ... pozostale prototypy ... */
+#endif
+
+gcc -std=c90 -Wall -Wextra -pedantic main.c matrix.c -o kalkulator.exe
+gcc -std=c90 -Wall -Wextra -pedantic -c main.c
+gcc -std=c90 -Wall -Wextra -pedantic -c matrix.c
+gcc main.o matrix.o -o kalkulator.exe
+
+/* main.c */
+#include "matrix.h"
+#include "matrix_io.h" /* ten plik tez dolacza matrix.h */
+
+CC = gcc
+CFLAGS = -std=c90 -Wall -Wextra -pedantic -g
+kalkulator.exe: main.o matrix.o matrix_io.o
+$(CC) $(CFLAGS) -o $@ main.o matrix.o matrix_io.o
+%.o: %.c
+$(CC) $(CFLAGS) -c $<
+main.o: main.c matrix.h matrix_io.h
+matrix.o: matrix.c matrix.h
+
+gcc -std=c90 -Wall -Wextra -pedantic -g blad_indeksu.c -o blad_indeksu.exe
+gdb blad_indeksu.exe
+
+static void sprawdz(int warunek, const char *opis)
+{
+ liczba_testow++;
+ if (warunek) {
+ printf("[ OK ] %s\n", opis);
+ } else {
+ liczba_bledow++;
+ printf("[BLAD] %s\n", opis);
+ }
+}
