@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX_SIZE 10
 
 typedef struct _macierz
@@ -31,21 +32,43 @@ macierz wczytaj(char * nazwa_pliku)
 {
 	macierz m;
 	int i, j;
+	int ile;
 	printf("Bede probowal wczytac dane z pliku: %s\n", nazwa_pliku);
 	
 	FILE * fin = fopen(nazwa_pliku, "r");
-	//m.k = 6;
-	fscanf(fin, "%d", &m.w );
-	//m.w = 3;
-	fscanf(fin, "%d", &m.k );
+	if (fin == NULL)
+	{
+		printf("Blad: Nie moge otworzyc pliku: %s", nazwa_pliku);
+		exit(2);
+	}
+	
+	ile = fscanf(fin, "%d", &m.w );
+	if (ile != 1)
+	{
+		printf("Nieprawizdlowy format pliku. Oczekiwalem liczby wierszy.");
+		exit(4);
+	}
+	
+	ile = fscanf(fin, "%d", &m.k );
+	if (ile != 1)
+	{
+		printf("Nieprawizdlowy format pliku. Oczekiwalem liczby kolumn.");
+		exit(5);
+	}
 	
 	for (i=0; i < m.w; i++)
 	{
 		for (j=0; j < m.k; j++)
 		{
-			fscanf(fin, "%lf", &m.wartosci[i][j]);
+			ile = fscanf(fin, "%lf", &m.wartosci[i][j]);
+			if (ile != 1)
+			{
+				printf("Nieprawizdlowy format pliku dla i=%d, j=%d. Nie udalo mi sie wczytac kolejnej liczby.", i,j);
+				exit(3);
+			}
 		}
 	}
+	
 	fclose(fin);
 	return m;
 };
@@ -62,7 +85,7 @@ void zapisz(char *nazwa, macierz m)
 	{
 		for (j=0; j < m.k; j++)
 		{
-			fprintf(fout, "%lf ", m.wartosci[i][j]);
+			fprintf(fout, "%.2lf ", m.wartosci[i][j]);
 		}
 		
 		if (i < (m.w-1))
@@ -133,21 +156,42 @@ int main(int argc, char *argv[])
 {
 	macierz m1;
 	macierz m2;
-	
+	macierz m3;
+
 	if (argc < 3)
 	{
 		printf("Podaj argumenty. Na przyklad: sem3.exe macierz.txt wynik.txt\n");
 		exit(1);
 	}
-	
+
 	//m1 = wczytaj("macierz1.txt");
 	//printf("wymiar macierzy; wierwsze: %d kolumny: %d\n", m1.w, m1.k);
 	//printf("%.1lf\n", m1.wartosci[2][3]);
 	m1 = wczytaj(argv[1]);
 	wypisz(m1);
-	m2 = dodaj(m1,m1);
-	zapisz(argv[2], m2);
 
-	printf("test test");
+	if ( strcmp(argv[2], "+") == 0 )
+	{
+		if (argc > 3)
+		{
+			m2 = wczytaj(argv[3]);
+			wypisz(m2);
+			m3 = dodaj(m1,m2);
+			
+			if (argc > 4)
+			{
+				zapisz(argv[4], m3);
+			} else
+			{
+				printf("Brak nazwy pliku wynikowego.");
+				exit(5);
+			}
+		} else
+		{
+			printf("Operacja dodawania wymaga podania drugiego pliku.");
+			exit(5);
+		}
+	}
+
 	return 0;
 }
