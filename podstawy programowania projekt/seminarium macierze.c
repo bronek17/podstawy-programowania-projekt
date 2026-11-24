@@ -137,7 +137,6 @@ macierz mnoz(macierz lewa, macierz prawa)
 
 	for (i=0; i < lewa.w; i++)
 	{
-		
 		for (j=0; j < prawa.k; j++)
 		{
 			suma = 0;
