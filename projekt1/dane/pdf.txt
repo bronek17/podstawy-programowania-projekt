@@ -1,0 +1,67 @@
+Bronisław Orawiec 349719 – kalkulator macierze
+Program jest kalkulatorem operacji na macierzach liczb rzeczywistych. Aplikacja
+wczytuje dwie macierze (A.txt oraz B.txt) z plików tekstowych, pozwala
+użytkownikowi wybrać jedną z trzech operacji matematycznych z poziomu prostego
+menu w konsoli, sprawdza poprawność i zgodność wymiarów, a następnie wyświetla
+wynik na ekranie oraz zapisuje go do pliku wyjściowego wynik.txt.
+1 – Dodawanie macierzy (A + B) – dla macierzy o identycznych wymiarach.
+2 – Odejmowanie macierzy (A - B) – dla macierzy o identycznych wymiarach.
+3 – Mnożenie macierzy (A × B) – również dla macierzy prostokątnych, przy
+spełnieniu warunku zgodności wymiarów (liczba kolumn macierzy A równa liczbie
+wierszy macierzy B).
+Program posiada pełną obsługę błędów (m.in. brak pliku, wymiary spoza zakresu 1–
+20, brakujące lub niepoprawne dane w pliku, niezgodne wymiary do wybranej
+operacji, błąd zapisu). W przypadku wystąpienia błędu wypisywany jest czytelny
+komunikat, otwarte pliki są zamykane, plik wynikowy nie jest tworzony, a program
+kończy działanie kodem 1.
+Podział na pliki i najważniejsze funkcje:
+Projekt został podzielony na trzy logiczne moduły oraz plik budujący Makefile:
+• main.c – główny moduł sterujący przebiegiem programu. Wywołuje funkcje
+wczytujące macierze z folderu dane/, obsługuje menu wyboru operacji, zleca
+wykonanie obliczeń, wyświetla macierz wynikową i zapisuje ją do pliku.
+• matrix.h / matrix.c – moduł odpowiedzialny za logikę matematyczną, walidację
+wymiarów oraz obsługę kodów błędów. Najważniejsze funkcje:
+o wymiary_poprawne() – sprawdza, czy liczba wierszy i kolumn mieści
+się w przedziale od 1 do MAX (20).
+o zgodne_do_sumy() / zgodne_do_iloczynu() – weryfikują, czy dla
+danych wymiarów macierzy można wykonać wybrane działanie.
+o dodaj(), odejmij(), pomnoz() – realizują właściwe obliczenia na
+tablicach dwuwymiarowych.
+o wykonaj() – funkcja dyspozytorska, która na podstawie wybranej opcji
+(1, 2 lub 3) sprawdza wymiary i wywołuje odpowiednią funkcję
+obliczeniową.
+o opis_bledu() – tłumaczy numeryczne kody błędów na czytelne
+komunikaty tekstowe.
+• matrix_io.h / matrix_io.c – moduł odpowiedzialny za operacje wejścia/wyjścia
+(obsługę plików i wypisywanie w konsoli). Najważniejsze funkcje:
+o wczytaj_macierz() – bezpiecznie otwiera plik w trybie odczytu,
+wywołuje funkcję pomocniczą czytaj_dane() i zamyka strumień przed
+zwróceniem wyniku.
+o zapisz_macierz() – zapisuje wymiary oraz elementy macierzy
+wynikowej do pliku, kontrolując błędy zapisu za pomocą ferror() i
+fclose().
+o wypisz() – formatuje i wyświetla zawartość macierzy na ekranie z
+dokładnością do dwóch miejsc po przecinku.
+• Makefile – automatyzuje kompilację poszczególnych modułów do plików
+obiektowych (.o) i łączy je w plik wykonywalny kalkulator.exe z wymaganymi
+flagami kompilatora.
+Format danych wejściowych i wyjściowych
+Pliki wejściowe (dane/A.txt oraz dane/B.txt) oraz plik wynikowy (wynik.txt) mają
+jednolitą strukturę tekstową:
+1. Pierwszy wiersz zawiera dwie liczby całkowite oddzielone spacją: liczbę
+wierszy oraz liczbę kolumn (obie z zakresu 1–20).
+2. Kolejne wiersze zawierają elementy macierzy (liczby zmiennoprzecinkowe z
+kropką jako separatorem dziesiętnym), ułożone wierszami.
+3. W pliku wynikowym elementy są zapisywane z dokładnością do dwóch miejsc
+po przecinku (%.2f).
+Kompilacja, uruchomienie i testowanie
+Wszystkie poniższe polecenia należy wywołać z poziomu terminala w katalogu
+projektu (projekt1/), w którym znajduje się Makefile:
+cd projekt1
+make
+./kalkulator.exe
+make clean
+Wszystkie podstawowe wymagania z prezentacji na Teams udało się zrealizować.
+Pomoc AI: do pomocy napisania programu użyłem czatu gemini, który pomógł mi w
+wyjaśnić rzeczy, których nie wiedziałem oraz na końcu wskazał błędy w moim
+programie.

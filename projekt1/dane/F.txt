@@ -1,0 +1,4 @@
+cd projekt1
+make
+./kalkulator.exe
+make clean
